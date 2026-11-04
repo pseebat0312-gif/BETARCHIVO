@@ -1,0 +1,5 @@
+---
+import {ui} from '../data/ui';
+const {project,lang='en',eager=false}=Astro.props;const t=ui[lang];
+---
+{project.cover?<figure class="project-image"><img src={project.cover} alt={t.actual+' — '+project.title} width="1200" height="750" loading={eager?'eager':'lazy'}/></figure>:project.slug==='entre-flores'?<div class="floral-placeholder"><span>ENTRE FLORES / MADRID</span><strong>Product photography<br/>coming soon.</strong><small>FLORAL ATELIER · CREATIVE WEB EXPERIENCE</small></div>:<div class:list={['type-cover',`type-cover--${project.slug}`]}><span>{project.slug==='playground-lab'?'DATA / MATHEMATICS / CODE':project.slug==='student-hub-spain'?'DIGITAL PRODUCT':'CREATIVE EXPERIMENT / 2026'}</span><strong>{project.slug==='student-hub-spain'?<>Hola,<br/><em>España.</em></>:project.slug==='playground-lab'?<>Explore.<br/><em>Experiment.</em></>:project.slug==='interactive-phone'?<>A story<br/><em>in your pocket.</em></>:project.slug==='merge-game'?<>Merge.<br/><em>Play. Repeat.</em></>:<>Just<br/><em>squish it.</em></>}</strong><span>{project.title}</span><small>{project.slug==='student-hub-spain'?t.typeCover:'BETARCHIVO / EXPERIMENTS'}</small></div>}

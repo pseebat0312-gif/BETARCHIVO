@@ -1,0 +1,2 @@
+import {config,langs} from '../data/config';import {publicProjects} from '../data/projects';
+export function GET(){const paths=['','work/','about/','services/','contact/',...publicProjects.map(p=>'work/'+p.slug+'/')];const origin=config.origin.replace(/\/$/,'');return new Response(`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${origin?langs.flatMap(l=>paths.map(p=>`<url><loc>${origin}/${l}/${p}</loc></url>`)).join(''):''}</urlset>`,{headers:{'Content-Type':'application/xml'}});}
