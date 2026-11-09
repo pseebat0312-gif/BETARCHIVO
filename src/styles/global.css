@@ -81,17 +81,118 @@
 @media(max-width:720px){.hero-drawer-showcase{width:calc(100% - 13px)}.hero-preview-body{grid-template-columns:1fr 1fr;gap:12px;padding:0 14px 17px}.hero-preview-drawer summary{padding:14px;min-height:62px}.hero-preview-copy h3{font-size:17px}.hero-preview-copy p{font-size:10px}.hero-preview-art .floral-placeholder{min-height:130px;padding:10px}.hero-preview-art .floral-placeholder strong{font-size:18px}}
 @media(max-width:420px){.hero-preview-body{grid-template-columns:1fr}.hero-preview-art .floral-placeholder{min-height:150px}}
 
-/* Consistent portfolio image proportions across every project. */
-.work-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
-.work-card .project-image,.work-card .type-cover,.work-card .floral-placeholder{aspect-ratio:3/2;height:auto;min-height:0;overflow:hidden}
-.work-card .project-image img{width:100%;height:100%;object-fit:cover;object-position:center center}
-.drawer .project-image{aspect-ratio:3/2;overflow:hidden}
-.drawer .project-image img{width:100%;height:100%;object-fit:cover}
-.floral-case-gallery{margin:42px 0 12px;display:grid;gap:56px}
-.floral-gallery-item{margin:0}
-.floral-gallery-heading{display:grid;grid-template-columns:110px 1fr;gap:24px;align-items:start;margin-bottom:22px;padding-top:20px;border-top:1px solid var(--line)}
-.floral-gallery-heading>span{font-size:11px;letter-spacing:2px;color:var(--wine)}
-.floral-gallery-heading h2{font-size:clamp(24px,3vw,38px);margin-bottom:9px}
-.floral-gallery-heading p{font-size:14px;max-width:650px;color:var(--forest)}
-.floral-gallery-item img{width:100%;height:auto;display:block;border:1px solid var(--line)}
-@media(max-width:720px){.work-grid{grid-template-columns:1fr}.floral-gallery-heading{grid-template-columns:1fr;gap:8px}.floral-case-gallery{gap:38px}}
+/* BETARCHIVO editorial refinement — additive overrides; original components remain intact. */
+.sketch-arrow{width:1.35em;height:1.35em;display:inline-block;vertical-align:-.25em;flex:none;overflow:visible;transform-origin:center;transition:transform .25s ease}
+.sketch-arrow--right{transform:rotate(0deg)}
+.sketch-arrow--up-right{transform:rotate(-45deg)}
+.sketch-arrow--down-right{transform:rotate(45deg)}
+.sketch-arrow--down{transform:rotate(90deg)}
+.sketch-arrow--left{transform:rotate(180deg)}
+.sketch-arrow--up{transform:rotate(-90deg)}
+a:hover>.sketch-arrow,a:hover>span>.sketch-arrow{translate:2px -2px}
+:root{--ink:#26392d;--green:#65745b;--forest:#26392d;--wine:#793d4a}
+body{background:var(--paper)}
+.hero-studio{background:#26392d;color:#f5f1e8}
+.hero-studio:before{background:radial-gradient(ellipse at 82% 18%,#793d4a38,transparent 47%),radial-gradient(ellipse at 4% 90%,#65745b33,transparent 53%)}
+.hero-studio h1{font-family:'Fraunces',Georgia,'Songti SC',serif;font-weight:400;letter-spacing:-.055em;line-height:1.03}
+.hero-studio h1 em{color:#e4c5bd;font-style:italic}
+.hero-studio .hero-kicker{color:#dfc9b5}
+.hero-studio .hero-bottom p{color:#e0e1d8}
+.hero-drawer-showcase{background:#f5f1e8;border-color:#c6bfae;box-shadow:12px 13px 0 #192b25,0 25px 48px #101e1b3a}
+.hero-showcase-head,.hero-showcase-bottom{color:#465947}
+.hero-showcase-bottom{border-color:#d9d1c5}
+.hero-preview-drawer{background:#65745b;color:#faf8f3}
+.hero-preview-1{background:#793d4a}
+.hero-preview-2{background:#1c3040}
+.hero-preview-drawer summary{transition:background .22s ease,padding .22s ease}
+.hero-preview-drawer summary:hover{padding-left:25px}
+.hero-preview-drawer .drawer-title,.drawer-title{font-family:'Fraunces',Georgia,'Songti SC',serif}
+.page-title,.section-heading h2,.case h1,.contact-banner h2{font-family:'Fraunces',Georgia,'Songti SC',serif}
+@media(max-width:720px){
+  .header{height:68px;min-height:68px}
+  nav{top:67px}
+  .hero-studio{padding-top:0}
+  .hero-studio .wrap{width:calc(100% - 36px)}
+  .hero-studio .hero-top{padding-top:16px}
+  .hero-studio .hero-grid{gap:17px;padding:18px 0 17px}
+  .hero-studio .hero-statement{display:flex;flex-direction:column}
+  .hero-studio .hero-kicker{font-size:9px;letter-spacing:.14em}
+  .hero-studio h1{font-size:clamp(33px,8.6vw,48px);margin-top:9px;line-height:1.01;letter-spacing:-.05em}
+  :lang(zh) .hero-studio h1{font-size:clamp(29px,7.3vw,42px)}
+  .hero-studio .hero-bottom{margin-top:12px}
+  .hero-studio .hero-bottom p{font-size:11px;line-height:1.45;max-width:34ch;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+  .hero-studio .actions{margin-top:10px;gap:14px}
+  .hero-studio .actions .button{padding:9px 12px;min-height:39px;font-size:11px}
+  .hero-studio .actions .text-link{font-size:11px}
+  .hero-studio .discipline-tags{display:none}
+  .hero-drawer-showcase{width:100%;box-shadow:6px 7px 0 #192b25}
+  .hero-showcase-head,.hero-showcase-bottom{padding:9px 12px;font-size:8px}
+  .hero-preview-drawer summary{min-height:53px;padding:10px 13px}
+  .hero-preview-drawer .drawer-title{font-size:clamp(16px,4.4vw,20px)}
+  .hero-preview-drawer .drawer-plus{font-size:20px}
+  .hero-studio .hero-foot{padding:10px 0;font-size:8px}
+  .page{padding-top:26px}
+  .page-title{font-size:clamp(35px,10vw,49px)}
+  .lead{font-size:15px;line-height:1.55}
+  .drawer summary{min-height:64px}
+  .drawer-title{font-size:clamp(19px,5.2vw,24px)}
+}
+@media(max-width:390px){
+  .hero-studio .hero-top .issue{font-size:7px}
+  .hero-studio .hero-grid{gap:13px;padding:14px 0}
+  .hero-studio h1{font-size:clamp(30px,8.1vw,37px)}
+  .hero-studio .hero-bottom p{font-size:10px}
+  .hero-preview-drawer summary{min-height:49px}
+}
+@media(prefers-reduced-motion:reduce){.sketch-arrow{transition:none!important}a:hover>.sketch-arrow,a:hover>span>.sketch-arrow{translate:none}}
+
+
+/* v2.2 — preserve original hero layout, drawers and buttons; remove only oversized headline. */
+.header{position:sticky;top:0;z-index:80;background:#f5f1e8f5;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+#selected{scroll-margin-top:100px}
+.hero-studio{background:#f0ebe0;color:#26392d}
+.hero-studio:before{content:none!important}
+.hero-studio .hero-top,.hero-studio .hero-foot{color:#65745b}
+.hero-studio .hero-kicker{color:#793d4a}
+.hero-studio .hero-grid{grid-template-columns:1.05fr 1fr;gap:5%;align-items:center;padding:50px 0 55px}
+.hero-studio .hero-bottom{margin-top:20px}
+.hero-studio .hero-bottom p{color:#344a3e}
+.hero-intro-label{font-family:'Fraunces',Georgia,'Songti SC',serif;font-size:clamp(27px,3.3vw,48px);line-height:1.24;letter-spacing:-.035em;max-width:560px;margin-top:20px}
+.hero-studio .text-link{color:#26392d}
+.hero-studio .button{background:#26392d;color:#faf8f3}
+.hero-studio .button:hover{background:#793d4a;color:#faf8f3}
+.discipline-tags span{border-color:#65745b55;color:#65745b}
+.hero-drawer-showcase{align-self:center}
+.archive{background:#e9e1d4}
+@media(max-width:720px){
+ .hero-studio .hero-grid{display:flex;flex-direction:column;align-items:stretch;gap:22px;padding:22px 0 26px}
+ .hero-studio .hero-top{padding-top:12px}
+ .hero-studio .hero-kicker{font-size:9px}
+ .hero-intro-label{font-size:clamp(25px,7vw,35px);margin-top:10px}
+ .hero-studio .hero-bottom{margin-top:12px}
+ .hero-studio .hero-bottom p{font-size:12px;line-height:1.55}
+ .hero-studio .actions{margin-top:14px}
+ .hero-studio .discipline-tags{display:none}
+ .hero-drawer-showcase{width:100%}
+ #selected{scroll-margin-top:72px}
+}
+
+/* BETARCHIVO 2.3 — show the complete project gallery; no homepage changes */
+.project-gallery{display:grid;grid-template-columns:1fr;gap:clamp(20px,3vw,44px);margin:clamp(28px,5vw,72px) 0}
+.project-gallery-item{margin:0;min-width:0}
+.project-gallery-item img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#e9e1d4;border:1px solid #d9d1c5}
+.project-gallery-item figcaption{display:flex;justify-content:space-between;gap:16px;padding:11px 2px;font-size:11px;letter-spacing:.08em;color:#65745b}
+@media(max-width:720px){.project-gallery{gap:22px;margin:26px 0}.project-gallery-item figcaption{font-size:10px;letter-spacing:.02em;flex-wrap:wrap}}
+
+/* ENTRE FLORES — editorial case-study chapters */
+.floral-case-story{margin:clamp(34px,6vw,90px) 0;display:grid;gap:clamp(48px,7vw,100px)}
+.floral-story-heading{display:grid;grid-template-columns:125px minmax(0,1fr);gap:clamp(14px,3vw,38px);border-top:1px solid #cfc4b6;padding:25px 0 20px}
+.floral-story-heading h2{font-family:'Fraunces',Georgia,serif;font-size:clamp(30px,4vw,57px);font-weight:400;line-height:1.16;letter-spacing:-.035em;margin:0 0 14px;color:#26392d}
+.floral-story-heading p{max-width:690px;font-size:clamp(14px,1.2vw,17px);line-height:1.8;margin:0;color:#485b4b}
+.floral-story-chapter figure{margin:0}.floral-story-chapter img{display:block;width:100%;height:auto;border:1px solid #d9d1c5}
+.floral-story-visit{display:inline-flex;align-items:center;justify-content:space-between;gap:30px;padding:20px 0;border-top:1px solid #b9aa99;border-bottom:1px solid #b9aa99;color:#793d4a;text-decoration:none;font-family:'Fraunces',Georgia,serif;font-size:clamp(18px,2vw,28px)}
+@media(max-width:720px){.floral-story-heading{grid-template-columns:1fr;gap:10px}.floral-story-heading h2{font-size:clamp(27px,7vw,40px)}.floral-case-story{gap:42px}}
+
+/* Small original-project preview, visible even before opening ENTRE FLORES drawers */
+.drawer-floral-thumb{display:block;width:76px;height:48px;object-fit:cover;flex-shrink:0;border:1px solid rgba(250,248,243,.5);border-radius:2px;margin-inline-start:auto;margin-inline-end:12px}
+@media(max-width:520px){.drawer-floral-thumb{width:52px;height:38px;margin-inline-end:6px}}

@@ -1,0 +1,5 @@
+---
+interface Props { direction?: 'up-right' | 'down-right' | 'right' | 'left' | 'down' | 'up'; }
+const { direction = 'up-right' } = Astro.props;
+---
+<svg class:list={['sketch-arrow', `sketch-arrow--${direction}`]} viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 17.4 C12 16.5 19.2 16.7 26 14.7 M18.1 7.9 Q22.4 11.6 26 14.7 Q23.1 19.3 19.3 23.1" /></svg>
