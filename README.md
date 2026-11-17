@@ -48,6 +48,23 @@ npm run preview
 
 The static build is generated in `dist/`.
 
+## 3D archive catalogue
+
+Edit project content, covers, technologies, categories, featured status and display order in
+`src/data/projects.ts`. The project slug is its permanent ID and forms its localized work URL.
+Assign a permanent archive number in `src/data/archive.ts` when adding a project. That file also
+contains the drawer mapping and localized cabinet labels.
+
+| Drawer | Catalogue records |
+| --- | --- |
+| Featured Work | All published projects marked featured |
+| Digital Products | Digital Products and Data & Research |
+| Visual & Interactive | Visual & Interactive |
+| Games & Experiments | Games & Experiments |
+
+The Work index retains its separate Data & Research filter. Featured folders reference the
+same project records as the subject drawers. Use the Work index if WebGL is unavailable.
+
 ## Project structure
 
 ```text

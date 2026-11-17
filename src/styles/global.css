@@ -196,3 +196,15 @@ body{background:var(--paper)}
 /* Small original-project preview, visible even before opening ENTRE FLORES drawers */
 .drawer-floral-thumb{display:block;width:76px;height:48px;object-fit:cover;flex-shrink:0;border:1px solid rgba(250,248,243,.5);border-radius:2px;margin-inline-start:auto;margin-inline-end:12px}
 @media(max-width:520px){.drawer-floral-thumb{width:52px;height:38px;margin-inline-end:6px}}
+
+.archive-home{background:#1c3040}
+.archive-home .header{background:#14232f;color:#f5f1e8}
+.archive-home .wordmark{color:#f5f1e8}
+.archive-home .header .wordmark span,.archive-home .service-links a:hover h3{color:#d8bd85}
+.archive-home .header nav a:after{background:#d8bd85}
+.archive-home .capabilities,.archive-home .about-strip{color:#f5f1e8}
+.archive-home footer{color:#f5f1e8}
+@media(max-width:720px){.archive-home .header nav{background:#14232f}}
+::view-transition-old(root),::view-transition-new(root){animation-duration:300ms;animation-timing-function:ease-in-out}
+.archive-paper strong,.archive-case .case-heading h1{view-transition-name:archive-document-title}
+::view-transition-group(archive-document-title){animation-duration:360ms;animation-timing-function:ease-in-out}

@@ -1,0 +1,89 @@
+---
+import {archiveDrawers,archiveCopy,archiveLabels} from '../../data/archive';
+import type {Lang} from '../../data/config';
+const {lang}=Astro.props as {lang:Lang};
+const copy=archiveCopy[lang];
+const labels=archiveLabels[lang];
+const drawers=archiveDrawers(lang);
+---
+<section id="archive" class="archive-room" data-archive data-copy={JSON.stringify(copy)} data-drawers={JSON.stringify(drawers)}>
+ <div class="archive-caption"><h1>BETARCHIVO</h1><a class="archive-direct" href={`/${lang}/work/`}>{copy.index}</a></div>
+ <div class="archive-layout">
+  <div class="archive-viewport" aria-busy="true">
+   <canvas aria-hidden="true"></canvas>
+   <div class="archive-plaques" aria-hidden="true">{drawers.map(drawer=><div data-plaque hidden><span>{drawer.number}</span>{drawer.label}</div>)}</div>
+   <p class="archive-loading" role="status">{copy.loading}</p>
+  </div>
+  <div class="archive-controls">
+   <p data-status role="status" aria-live="polite">{labels.choose}</p>
+   <div class="archive-options" data-drawer-options role="group" aria-label={labels.choose}>
+    {drawers.map(drawer=><button type="button" data-drawer={drawer.id} disabled><span>{drawer.number}</span>{drawer.label}</button>)}
+   </div>
+   {drawers.map(drawer=><div class="archive-options" data-folders={drawer.id} role="group" aria-label={labels.folders} hidden>
+    {drawer.projects.map(project=><button type="button" data-folder={project.id}><span>{project.number}</span>{project.title}</button>)}
+   </div>)}
+   <div class="archive-buttons">
+    <button type="button" data-back hidden>{copy.back}</button>
+    <button type="button" data-next hidden>{copy.actions[2]}</button>
+    <a data-project-link hidden>{copy.actions[3]}</a>
+   </div>
+  </div>
+ </div>
+ <div class="archive-utilities">
+  <details class="archive-notes"><summary>{labels.notes}</summary><p>{labels.note}</p></details>
+  <button class="archive-audio" type="button" data-audio aria-pressed="false" data-on={labels.mute} data-off={labels.unmute} hidden>{labels.mute}</button>
+ </div>
+ <noscript><p>{copy.error}</p></noscript>
+ <div class="archive-paper" aria-hidden="true" hidden><div><span></span><strong></strong><img alt="" hidden /></div></div>
+</section>
+<script>
+const root=document.querySelector<HTMLElement>('[data-archive]');
+if(root){
+ const observer=new IntersectionObserver(entries=>{
+  if(!entries.some(entry=>entry.isIntersecting))return;
+  observer.disconnect();
+  import('../../lib/archive/cabinet').then(module=>module.mountArchive(root)).catch(()=>{
+   root.querySelector('.archive-loading')!.textContent=JSON.parse(root.dataset.copy!).error;
+   root.querySelector('.archive-viewport')!.setAttribute('aria-busy','false');
+  });
+ },{rootMargin:'100px'});
+ observer.observe(root);
+}
+</script>
+<style>
+.archive-room{scroll-margin-top:76px;background:radial-gradient(ellipse at 40% 58%,#243b4a 0%,#1c3040 58%,#14232f 100%);color:#f5f1e8;padding:clamp(20px,4vw,56px) max(16px,5vw) 24px}
+.archive-caption{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.archive-caption h1{font-family:Fraunces,Georgia,serif;font-size:clamp(25px,4vw,54px);font-weight:400;letter-spacing:.13em;margin:0}
+.archive-direct{font-size:14px;text-decoration:underline;text-underline-offset:5px}
+.archive-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(186px,20%);align-items:center;gap:clamp(14px,2.4vw,38px)}
+.archive-viewport{height:clamp(450px,68vh,740px);position:relative}
+.archive-viewport canvas{width:100%;height:100%;display:block;touch-action:pan-y}
+.archive-plaques{position:absolute;inset:0;pointer-events:none;overflow:clip}
+[data-plaque]{position:absolute;left:0;top:0;transform-origin:0 0;display:flex;align-items:center;gap:.47em;padding-inline:.6em;color:#271e19;font:600 12px/1 'DM Sans','Microsoft YaHei','PingFang SC',sans-serif;white-space:nowrap}
+[data-plaque] span{font-weight:500;color:#51402d;font-size:.84em;font-variant-numeric:tabular-nums}
+.archive-loading{position:absolute;inset:45% 12px auto;text-align:center;pointer-events:none}
+.archive-controls{min-width:0}
+.archive-controls p{margin-bottom:9px;font-size:13px;color:#e1d7c2}
+.archive-options,.archive-buttons{display:grid;gap:0}
+.archive-buttons{margin-top:7px}
+.archive-options button,.archive-buttons>*{display:flex;align-items:center;gap:10px;text-align:left;border:0;border-bottom:1px solid #b9ac9060;background:transparent;color:#f5f1e8;padding:8px 4px;min-height:44px;font:inherit;font-size:13px;cursor:pointer;overflow-wrap:anywhere;transition:background-color 140ms}
+.archive-options button:hover,.archive-buttons button:hover{background-color:#f5f1e814}
+.archive-options span{color:#d8bd85;font-size:11px;letter-spacing:.07em;flex:none}
+.archive-buttons a,.archive-buttons [data-next]{padding-inline:12px;background:#f5f1e8;color:#1c3040}
+.archive-buttons [data-next]:hover{background:#e9ddc4}
+.archive-options button:disabled,.archive-buttons button:disabled{opacity:.58;cursor:default}
+.archive-room :focus-visible{outline:2px solid #e9cb91;outline-offset:3px}
+.archive-utilities{display:flex;align-items:flex-start;gap:8px 24px;flex-wrap:wrap;margin-top:12px;color:#e1d7c2}
+.archive-notes,.archive-audio{font-size:13px}
+.archive-notes summary{cursor:pointer;width:fit-content}
+.archive-audio{background:none;padding:0;min-height:44px;text-decoration:underline;text-underline-offset:4px}
+.archive-notes summary{min-height:44px;align-content:center}
+.archive-paper{position:fixed;inset:0;display:grid;place-items:center;background:#f5f1e8;color:#1c3040;z-index:1000;pointer-events:none}
+.archive-paper>div{width:min(86vw,960px);display:grid;gap:12px}
+.archive-paper strong{font:400 clamp(28px,6vw,85px)/1 Fraunces,Georgia,serif}
+.archive-paper img{max-height:52vh;width:100%;object-fit:cover}
+.archive-room [hidden]{display:none!important}
+@media(max-width:780px){.archive-layout{display:block}.archive-viewport{height:clamp(325px,52vh,550px)}.archive-controls p{margin:12px 0}.archive-options button{width:100%}}
+@media(hover:none){.archive-options button{min-height:47px}}
+@media(prefers-reduced-motion:reduce){.archive-options button,.archive-buttons>*{transition:none}}
+</style>
