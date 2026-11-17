@@ -1,0 +1,22 @@
+---
+import {publicProjects} from '../../data/projects';
+import {prototypeArchiveId,archiveCopy} from '../../data/archive';
+import type {Lang} from '../../data/config';
+const {lang}=Astro.props as {lang:Lang};
+const copy=archiveCopy[lang];
+const project=publicProjects.find(p=>p.slug===prototypeArchiveId)!;
+---
+<section id="archive" class="archive-room" data-archive data-copy={JSON.stringify(copy)} data-project={project.slug}>
+ <div class="archive-caption"><h1>{copy.title}</h1><p>{copy.intro}</p><a href={`/${lang}/work/`}>{copy.index}</a></div>
+ <div class="archive-viewport" aria-busy="true"><canvas aria-hidden="true"></canvas><p class="archive-loading" role="status">{copy.loading}</p></div>
+ <div class="archive-controls"><div><span class="archive-record">{project.title}</span><p data-status role="status" aria-live="polite">{copy.steps[0]}</p></div><div class="archive-buttons"><button type="button" data-back disabled>{copy.back}</button><button type="button" data-next disabled>{copy.actions[0]}</button><a data-project-link href={`/${lang}/work/${project.slug}/?from=archive`} hidden>{copy.actions[3]}</a></div></div>
+ <noscript><p>{copy.error}</p></noscript>
+ <a class="archive-direct" href={`/${lang}/work/${project.slug}/?from=archive`}>{project.title}</a>
+</section>
+<script>
+const root=document.querySelector<HTMLElement>('[data-archive]');
+if(root){const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();import('../../lib/archive/cabinet').then(m=>m.mountArchive(root)).catch(()=>{const copy=JSON.parse(root.dataset.copy!);root.querySelector('[role="status"]')!.textContent=copy.error;root.querySelector('.archive-viewport')!.setAttribute('aria-busy','false');});}},{rootMargin:'100px'});observer.observe(root);}
+</script>
+<style>
+.archive-room{scroll-margin-top:100px;background:#1c3040;color:#f5f1e8;padding:30px max(20px,5vw);position:relative}.archive-caption{display:flex;align-items:baseline;gap:24px;flex-wrap:wrap}.archive-caption h1{font-size:clamp(24px,3vw,40px);font-weight:400;margin:0}.archive-caption p{font-size:13px;flex:1;color:#d3d5cb}.archive-caption a,.archive-direct{font-size:13px;text-decoration:underline;text-underline-offset:5px}.archive-viewport{height:min(66vw,640px);min-height:420px;position:relative}.archive-viewport canvas{width:100%;height:100%;display:block;touch-action:pan-y}.archive-loading{position:absolute;top:45%;width:100%;text-align:center;pointer-events:none}.archive-controls{border-top:1px solid #a7b19b66;padding:20px 0;display:flex;justify-content:space-between;gap:20px;align-items:center}.archive-record{font-size:12px;color:#c7b18a}.archive-controls p{font-size:14px;margin:6px 0}.archive-buttons{display:flex;gap:12px;flex-wrap:wrap}.archive-buttons button,.archive-buttons a{border:1px solid #a7b19b;background:#f5f1e8;color:#1c3040;padding:13px 18px;min-height:48px;font:inherit;font-size:13px;cursor:pointer}.archive-buttons [data-back]{background:transparent;color:#f5f1e8}.archive-buttons :disabled{opacity:.4;cursor:default}.archive-room :focus-visible{outline:3px solid #a7b19b;outline-offset:5px}.archive-direct{display:inline-block;margin-bottom:12px}.archive-room [hidden]{display:none!important}@media(max-width:720px){.archive-caption{gap:12px}.archive-caption p{flex-basis:100%;margin:0}.archive-viewport{height:66vh;min-height:430px;max-height:660px}.archive-controls{display:block}.archive-buttons{margin-top:16px}.archive-buttons>*{flex:1;text-align:center}}
+</style>

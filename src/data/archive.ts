@@ -1,0 +1,8 @@
+import type {Lang} from './config';
+// Canonical project slugs are stable archive identifiers, independent of sort order.
+export const prototypeArchiveId = 'entre-flores';
+export const archiveCopy:Record<Lang,{title:string;intro:string;steps:string[];actions:string[];back:string;index:string;loading:string;error:string;return:string}>={
+ en:{title:'The living archive',intro:'One drawer. A floral world within. Open, select, unseal.',steps:['The archive is closed.','Choose the folder inside the drawer.','The folder rests on the reading table. Release its clasp.','The file is open. Enter the project.','Opening the project.'],actions:['Open drawer','Select folder','Unseal file','View project'],back:'Previous step',index:'Browse all projects',loading:'Preparing the archive…',error:'The 3D archive is unavailable. Browse the projects below.',return:'Return to archive'},
+ es:{title:'El archivo vivo',intro:'Un cajón. Un mundo floral dentro. Abre, elige y descubre.',steps:['El archivo está cerrado.','Elige la carpeta del cajón.','La carpeta está en la mesa. Abre el cierre.','El archivo está abierto. Entra en el proyecto.','Abriendo el proyecto.'],actions:['Abrir cajón','Elegir carpeta','Abrir archivo','Ver proyecto'],back:'Paso anterior',index:'Ver todos los proyectos',loading:'Preparando el archivo…',error:'El archivo 3D no está disponible. Explora los proyectos abajo.',return:'Volver al archivo'},
+ zh:{title:'流动的档案',intro:'一只抽屉，一份花园档案。拉开、选择、启封。',steps:['档案柜尚未开启。','选择抽屉中的文件夹。','文件已放在阅览台上，请解开搭扣。','档案已打开，可以进入项目。','正在进入项目。'],actions:['拉开抽屉','选择文件','启封档案','查看项目'],back:'返回上一步',index:'浏览全部项目',loading:'正在准备档案室…',error:'暂时无法显示三维档案，可通过下方链接浏览项目。',return:'返回档案柜'}
+};
