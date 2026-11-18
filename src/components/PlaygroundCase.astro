@@ -1,0 +1,63 @@
+---
+import type {Lang} from '../data/config';
+import {labImage,labText,playgroundLab,type LabFrame} from '../data/playground-lab';
+import SketchArrow from './SketchArrow.astro';
+const {lang}=Astro.props as {lang:Lang};
+const copy=labText[lang];
+const chapters:{text:[string,string];images?:LabFrame[]}[]=[
+ {text:copy.concept},
+ {text:copy.experience,images:['probability']},
+ {text:[copy.labs,''],images:['functions','algebra','matrix','statistics','frequency','code']},
+ {text:copy.design,images:['services']},
+ {text:copy.technical},
+];
+const hero=labImage('home');
+---
+<div class="lab-story">
+ <figure class="lab-hero">
+  <a href={hero.src} aria-label={`${copy.enlarge} · ${copy.captions.home}`}>
+   <img {...hero} alt={copy.captions.home} fetchpriority="high"/>
+  </a>
+  <figcaption>{copy.captions.home}</figcaption>
+ </figure>
+ <div class="lab-lead"><p>{copy.summary}</p><p>{copy.role}</p></div>
+ {chapters.map(({text:[title,description],images})=><section class="lab-chapter">
+  <header><h2>{title}</h2>{description&&<p>{description}</p>}</header>
+  {images&&<div class="lab-plates">
+   {images.map(frame=>{
+    const image=labImage(frame);
+    const caption=copy.captions[frame];
+    return <figure class:list={[frame==='algebra'&&'lab-portrait']}>
+     <a href={image.src} aria-label={`${copy.enlarge} · ${caption}`}>
+      <img {...image} alt={caption} loading="lazy" decoding="async"/>
+     </a>
+     <figcaption>{caption}</figcaption>
+    </figure>;
+   })}
+  </div>}
+ </section>)}
+ <a class="lab-visit" href={playgroundLab.live} target="_blank" rel="noopener noreferrer">{copy.visit} <SketchArrow direction="up-right"/></a>
+</div>
+<style>
+.lab-story{--lab-rule:#c8c6b6;--lab-muted:#41564c}
+.lab-story figure{margin:0;min-width:0}
+.lab-story figure a{display:block;border:1px solid var(--lab-rule);background:#f5f1e8;cursor:zoom-in}
+.lab-story img{display:block;width:100%;height:auto}
+.lab-story figcaption{color:var(--lab-muted);font-size:.86rem;line-height:1.65;margin-top:.65rem;max-width:68ch}
+.lab-hero{animation:lab-enter 420ms ease-out both}
+.lab-lead,.lab-chapter header{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(18px,5vw,76px)}
+.lab-lead{padding-block:22px 48px;align-items:start}
+.lab-lead p:first-child{font-size:clamp(1rem,1.55vw,1.28rem)}
+.lab-lead p:last-child{font-size:.85rem;color:var(--lab-muted)}
+.lab-chapter{border-top:1px solid var(--lab-rule);padding-block:clamp(30px,5vw,68px)}
+.lab-chapter header{align-items:baseline;margin-bottom:24px}
+.lab-chapter h2{font-size:clamp(1.65rem,3.6vw,2.8rem);line-height:1.12}
+.lab-chapter header p{max-width:60ch}
+.lab-plates{display:grid;gap:clamp(28px,5vw,65px)}
+.lab-plates .lab-portrait{width:min(100%,850px)}
+.lab-visit{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:21px;border-block:1px solid var(--lab-rule);font:400 clamp(1.25rem,2.6vw,2rem) Fraunces,Georgia,serif;color:#793d4a;margin-bottom:60px}
+.lab-visit:hover{text-decoration:underline;text-underline-offset:.22em}
+@keyframes lab-enter{from{opacity:0}to{opacity:1}}
+@media(max-width:720px){.lab-lead,.lab-chapter header{grid-template-columns:1fr;gap:12px}.lab-lead{padding-bottom:32px}}
+@media(prefers-reduced-motion:reduce){.lab-hero{animation:none}}
+</style>
